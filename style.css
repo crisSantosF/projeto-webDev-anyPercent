@@ -1,10 +1,6 @@
-*
-{
-    background-color: #470047;
-}
-
 body
 {
+    background-color: #470047;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -23,6 +19,12 @@ h1
 {
     color:rgb(127, 214, 255);
     transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
+}
+
+#botao_tela_principal
+{
+    display: flex;
+    justify-self: flex-end;
 }
 
 @keyframes rotacao_aparece
