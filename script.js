@@ -16,11 +16,21 @@ function rotacionar_palavras()
         {
             index_atual = (index_atual + 1) % palavras_para_rotacionar.length;
 
+            // retira a animação de desaparcimento o elemento html
+            palavra_rotatoria.classList.remove('rotacao-desaparece');
+
             /*muda o texto do elemento html */
             palavra_rotatoria.textContent = palavras_para_rotacionar[index_atual];
 
-            // retira a animação de desaparcimento o elemento html
-            palavra_rotatoria.classList.remove('rotacao-desaparece');
+            palavra_rotatoria.classList.add('rotacao-aparece');
+
+            palavra_rotatoria.addEventListener('animationend', () =>
+            {
+                palavra_rotatoria.classList.remove('rotacao-aparece');
+                
+            }, {once:true})
+                
+
         }, {once:true})
     
     },2000)
