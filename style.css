@@ -1,0 +1,70 @@
+*
+{
+    background-color: #470047;
+}
+
+body
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80vh;
+    margin: 0;
+    margin-left: 10vw;
+}
+
+h1
+{
+    font-family: sans-serif;
+    color: antiquewhite;
+}
+
+#cycling_word
+{
+    color:rgb(127, 214, 255);
+    transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
+}
+
+@keyframes rotacao_aparece
+{ /*define uma animação em que um elemento "aparece vindo de baixo"*/
+
+    from
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes rotacao_desaparece
+{ /*define uma animação em que um elemento "desaparece indo para cima"*/
+
+    from
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+}
+
+
+/*para as animações serão criadas classes para que possam ser controladas pelo JS*/
+.rotacao-aparece
+{
+    animation: rotacao_aparece 0.5s ease-in;
+}
+
+.rotacao-desaparece
+{
+    animation: rotacao_desaparece 0.5s ease-out;
+}
