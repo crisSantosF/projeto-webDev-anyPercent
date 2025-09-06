@@ -1,33 +1,54 @@
-*
-{
-    background-color: #470047;
-}
-
 body
 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 80vh;
-    margin: 0;
-    margin-left: 10vw;
+    display: grid;
+    grid-template-columns: repeat(20,1fr);
+    grid-template-rows: repeat(20,1fr);
+    background-color: #470047;
+    min-height: 100vh;
+    min-width: 100vw;
 }
 
-h1
+#conteiner_principal
+{
+    grid-column: 3/16;
+    grid-row: 3;
+}
+
+#texto_tela_principal
 {
     font-family: sans-serif;
     color: antiquewhite;
 }
 
+
+
 #cycling_word
 {
+    display: inline-block;
     color:rgb(127, 214, 255);
     transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
 }
 
-@keyframes rotacao_aparece
-{ /*define uma animação em que um elemento "aparece vindo de baixo"*/
+#botao_tela_principal
+{
+    grid-column: 12;
+    grid-row: 3;
+    place-self: center;
+}
 
+button
+{
+    all:unset;
+}
+.material-symbols-outlined
+{
+    background: none;
+    color:rgb(127, 214, 255);
+}
+
+@keyframes rotacao_aparece
+{
+    /*define uma animação em que um elemento "aparece vindo de baixo"*/
     from
     {
         opacity: 0;
