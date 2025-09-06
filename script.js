@@ -1,65 +1,46 @@
 const palavra_rotatoria = document.getElementById('cycling_word');
-
 const palavras_para_rotacionar = ['mensal', 'semanal', 'diário'];
-
+const animacao_atual = ['aparece', 'desaparece'];
 let index_atual = 0;
 
-/*o loop será feito de forma 'recursiva', chamando a função sempre após tempo_permanecimento vezes*/
-function rotacionar_palavras()
+
+function iniciar_rotacao() 
 {
-    setInterval( ()=>
-    {
-        // adiciona a animação de desaparcimento o elemento html
-        palavra_rotatoria.classList.add('rotacao-desaparece');
-
-        palavra_rotatoria.addEventListener('animationend', () =>
-        {
-            index_atual = (index_atual + 1) % palavras_para_rotacionar.length;
-
-            // retira a animação de desaparcimento o elemento html
-            palavra_rotatoria.classList.remove('rotacao-desaparece');
-
-            /*muda o texto do elemento html */
-            palavra_rotatoria.textContent = palavras_para_rotacionar[index_atual];
-
-            palavra_rotatoria.classList.add('rotacao-aparece');
-
-            palavra_rotatoria.addEventListener('animationend', () =>
-            {
-                palavra_rotatoria.classList.remove('rotacao-aparece');
-                
-            }, {once:true})
-                
-
-        }, {once:true})
-    
-    },2000)
-
+    palavra_rotatoria.classList.add('rotacao-desaparece');
 }
 
 
-rotacionar_palavras();
+function trocar_palavra_e_aparecer() 
+{
+  
+    palavra_rotatoria.classList.remove('rotacao-desaparece');
+
+    index_atual = (index_atual + 1) % palavras_para_rotacionar.length;
+    palavra_rotatoria.textContent = palavras_para_rotacionar[index_atual];
+
+    palavra_rotatoria.classList.add('rotacao-aparece');
+}
 
 
+function agendar_proxRotacao() 
+{
+    // Remove a classe de animação atual
+    palavra_rotatoria.classList.remove('rotacao-aparece');
+    
+    // Usa setTimeout para criar a pausa de 2 segundos antes de reiniciar o ciclo
+    setTimeout(iniciar_rotacao, 2000);
+}
 
 
+palavra_rotatoria.addEventListener('animationend', (event) =>
+{
 
+    if (event.animationName === 'rotacao_desaparece') {
+        trocar_palavra_e_aparecer();
+    } else if (event.animationName === 'rotacao_aparece') {
+        agendar_proxRotacao();
+    }
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Inicia o primeiro ciclo de todos.
+setTimeout(iniciar_rotacao, 2000);

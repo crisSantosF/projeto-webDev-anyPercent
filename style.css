@@ -8,7 +8,7 @@ body
     min-width: 100vw;
 }
 
-#conteiner_principal
+#tela_principal
 {
     grid-column: 3/16;
     grid-row: 3;
