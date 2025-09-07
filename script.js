@@ -1,7 +1,10 @@
+
+//***PAGINA PRINCIPAL*** //
+
 const palavra_rotatoria = document.getElementById('cycling_word');
 const palavras_para_rotacionar = ['mensal', 'semanal', 'diário'];
 const animacao_atual = ['aparece', 'desaparece'];
-let index_atual = 0;
+let index_palavras_para_rotacionar = 0;
 
 
 function iniciar_rotacao() 
@@ -9,18 +12,16 @@ function iniciar_rotacao()
     palavra_rotatoria.classList.add('rotacao-desaparece');
 }
 
-
 function trocar_palavra_e_aparecer() 
 {
   
     palavra_rotatoria.classList.remove('rotacao-desaparece');
 
-    index_atual = (index_atual + 1) % palavras_para_rotacionar.length;
-    palavra_rotatoria.textContent = palavras_para_rotacionar[index_atual];
+    index_palavras_para_rotacionar = (index_palavras_para_rotacionar + 1) % palavras_para_rotacionar.length;
+    palavra_rotatoria.textContent = palavras_para_rotacionar[index_palavras_para_rotacionar];
 
     palavra_rotatoria.classList.add('rotacao-aparece');
 }
-
 
 function agendar_proxRotacao() 
 {
@@ -44,3 +45,8 @@ palavra_rotatoria.addEventListener('animationend', (event) =>
 
 // Inicia o primeiro ciclo de todos.
 setTimeout(iniciar_rotacao, 2000);
+
+
+
+
+

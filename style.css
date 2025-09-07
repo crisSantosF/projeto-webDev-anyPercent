@@ -1,50 +1,87 @@
 body
 {
-    display: grid;
-    grid-template-columns: repeat(20,1fr);
-    grid-template-rows: repeat(20,1fr);
-    background-color: #470047;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    min-width: 100vw;
+    background-color: #F7F7F7;
+    overflow: hidden;
 }
 
-#tela_principal
-{
-    grid-column: 3/16;
-    grid-row: 3;
-}
 
-#texto_tela_principal
+#tela-selecao-escopoDePlanejamento
 {
+        display:grid;
+    grid-template-columns: repeat(3,25%);
+    gap: 2em;
+    justify-content: space-evenly;
     font-family: sans-serif;
-    color: antiquewhite;
+    
+    font-family: sans-serif;
+    color: #1a1a1a;
 }
 
-
-
-#cycling_word
+.escopo-plano
 {
-    display: inline-block;
-    color:rgb(127, 214, 255);
-    transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
+    display: flex;
+    flex-direction: column; 
+    align-self: center;
+    padding: 1em;
+    text-align: left;
+    border-radius: 1em;
+    box-shadow:  0 .75em 2em rgba(71, 0, 71, 0.603);
+    cursor: pointer;
+
+     height: 5em; 
 }
 
-#botao_tela_principal
+.texto-escopo
 {
-    grid-column: 12;
-    grid-row: 3;
-    place-self: center;
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  transition: opacity 0s;
 }
 
-button
+
+#mensal
 {
-    all:unset;
+    transition: min-height 0.5s;
 }
-.material-symbols-outlined
+
+#semanal
 {
-    background: none;
-    color:rgb(127, 214, 255);
+    transition: min-height 0.5s;
 }
+
+#diario
+{
+    transition: min-height 0.5s;
+
+}
+
+#mensal:hover
+{
+    min-height: 10em;
+}
+
+#semanal:hover
+{
+    min-height: 10em;
+}
+
+#diario:hover
+{
+    min-height: 10em;
+}
+
+.escopo-plano:hover .texto-escopo
+{
+    opacity:1;
+    font-size: inherit;
+    transition: opacity 0.5s;
+}
+
 
 @keyframes rotacao_aparece
 {
@@ -82,10 +119,10 @@ button
 /*para as animações serão criadas classes para que possam ser controladas pelo JS*/
 .rotacao-aparece
 {
-    animation: rotacao_aparece 0.5s ease-in;
+    animation: rotacao_aparece 0.5s ease-out-in;
 }
 
 .rotacao-desaparece
 {
-    animation: rotacao_desaparece 0.5s ease-out;
+    animation: rotacao_desaparece 0.5s ease-out-in;
 }
