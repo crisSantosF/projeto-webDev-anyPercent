@@ -1,5 +1,11 @@
-body
+#esconde-tela
 {
+    display:none;
+}
+
+#segunda-tela
+{
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +17,7 @@ body
 
 #tela-selecao-escopoDePlanejamento
 {
-        display:grid;
+    display:grid;
     grid-template-columns: repeat(3,25%);
     gap: 2em;
     justify-content: space-evenly;
