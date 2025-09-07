@@ -6,7 +6,7 @@ body
 
 
 /****** PRIMEIRA TELA ******/
-#conteiner-telaPrincipal
+#conteiner_telaPrincipal
 {
     height: 100%;
     width: 100%;
@@ -15,17 +15,15 @@ body
     grid-template-columns: repeat(20,1fr);
     grid-template-rows: repeat(20,1fr);
     background-color: #470047;
-    min-height: 100vh;
-    min-width: 100vw;
 }
 
-#tela_principal
+#telaPrincipal
 {
     grid-column: 3/16;
     grid-row: 3;
 }
 
-#texto_tela_principal
+#texto_telaPrincipal
 {
     font-family: sans-serif;
     color: antiquewhite;
@@ -33,21 +31,21 @@ body
 
 
 
-#cycling_word
+#cyclingWord
 {
     display: inline-block;
     color:rgb(127, 214, 255);
     transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
 }
 
-#botao_tela_principal
+#botao_telaPrincipal
 {
     grid-column: 12;
     grid-row: 3;
     place-self: center;
 }
 
-#botao-transicao-primeiraTela-segundaTela
+#botao_transicao_primeiraTela_segundaTela
 {
     all:unset;
     cursor: pointer;
@@ -92,34 +90,35 @@ body
 
 
 /*para as animações serão criadas classes para que possam ser controladas pelo JS*/
-.rotacao-aparece
+.rotacao_aparece
 {
     animation: rotacao_aparece 0.5s ease-in;
 }
 
-.rotacao-desaparece
+.rotacao_desaparece
 {
     animation: rotacao_desaparece 0.5s ease-out;
 }
 
-
-
-/****** SEGUNDA TELA ******/
-
-.animacao-esconde-tela
+.animacao_escondeTela
 {
     animation: rotacao_desaparece 0.5s;
     
 }
 
-.esconde-tela
+.escondeTela
 {
     display: none !important;
 }
 
-#segunda-tela
+
+
+
+
+/****** SEGUNDA TELA ******/
+
+#segundaTela
 {
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,7 +128,7 @@ body
 }
 
 
-#tela-selecao-escopoDePlanejamento
+#tela_selecao_escopoDePlanejamento
 {
     display:grid;
     grid-template-columns: repeat(3,25%);
@@ -141,7 +140,7 @@ body
     color: #1a1a1a;
 }
 
-.escopo-plano
+.escopoPlano
 {
     display: flex;
     flex-direction: column; 
@@ -152,10 +151,15 @@ body
     box-shadow:  0 .75em 2em rgba(71, 0, 71, 0.603);
     cursor: pointer;
 
-     height: 5em; 
+    height: 5em; 
 }
 
-.texto-escopo
+.tipoEscopo
+{
+    text-align: center;
+}
+
+.textoEscopo
 {
   opacity: 0;
   max-height: 0;
@@ -195,7 +199,7 @@ body
     min-height: 10em;
 }
 
-.escopo-plano:hover .texto-escopo
+.escopoPlano:hover .textoEscopo
 {
     opacity:1;
     font-size: inherit;
