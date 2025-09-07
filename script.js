@@ -1,4 +1,3 @@
-
 ////////////////////***PRIMEIRA TELA*** ////////////////////////
 
 const palavra_rotatoria = document.getElementById('cycling_word');
@@ -70,6 +69,3 @@ botao_transicao.addEventListener('click', () =>
 
     }, {once:true})
 }, {once:true})
-
-
-
