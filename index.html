@@ -9,7 +9,24 @@
     <title>Gerenciador de Tarefas</title>
 </head>
 <body>
-    <div id="esconde-tela">
+    <div id="conteiner-telaPrincipal">
+        <main id="tela_principal">
+            <header> 
+                <h1 id="texto_tela_principal">
+                    Vamos traçar seu planejamento
+                        <span id="cycling_word"> mensal</span>
+                </h1>
+            </header>
+        </main>
+
+        <div id="botao_tela_principal">
+            <button id="botao-transicao-primeiraTela-segundaTela">
+                <span class="material-symbols-outlined">arrow_drop_down_circle</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="esconde-tela" id="segunda-tela_aux">
         <div id="segunda-tela">
             <section>
                 <div id="tela-selecao-escopoDePlanejamento">
@@ -35,7 +52,5 @@
     </div>
 
     <script src="script.js"></script>
-
-
 </body>
 </html>

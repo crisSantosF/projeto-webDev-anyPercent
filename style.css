@@ -1,6 +1,120 @@
-#esconde-tela
+body
 {
-    display:none;
+    margin: 0;
+    overflow: hidden;
+}
+
+
+/****** PRIMEIRA TELA ******/
+#conteiner-telaPrincipal
+{
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(20,1fr);
+    grid-template-rows: repeat(20,1fr);
+    background-color: #470047;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+#tela_principal
+{
+    grid-column: 3/16;
+    grid-row: 3;
+}
+
+#texto_tela_principal
+{
+    font-family: sans-serif;
+    color: antiquewhite;
+}
+
+
+
+#cycling_word
+{
+    display: inline-block;
+    color:rgb(127, 214, 255);
+    transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
+}
+
+#botao_tela_principal
+{
+    grid-column: 12;
+    grid-row: 3;
+    place-self: center;
+}
+
+#botao-transicao-primeiraTela-segundaTela
+{
+    all:unset;
+    cursor: pointer;
+}
+.material-symbols-outlined
+{
+    background: none;
+    color:rgb(127, 214, 255);
+}
+
+@keyframes rotacao_aparece
+{
+    /*define uma animação em que um elemento "aparece vindo de baixo"*/
+    from
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes rotacao_desaparece
+{ /*define uma animação em que um elemento "desaparece indo para cima"*/
+
+    from
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+}
+
+
+/*para as animações serão criadas classes para que possam ser controladas pelo JS*/
+.rotacao-aparece
+{
+    animation: rotacao_aparece 0.5s ease-in;
+}
+
+.rotacao-desaparece
+{
+    animation: rotacao_desaparece 0.5s ease-out;
+}
+
+
+
+/****** SEGUNDA TELA ******/
+
+.animacao-esconde-tela
+{
+    animation: rotacao_desaparece 0.5s;
+    
+}
+
+.esconde-tela
+{
+    display: none !important;
 }
 
 #segunda-tela
@@ -86,49 +200,4 @@
     opacity:1;
     font-size: inherit;
     transition: opacity 0.5s;
-}
-
-
-@keyframes rotacao_aparece
-{
-    /*define uma animação em que um elemento "aparece vindo de baixo"*/
-    from
-    {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-@keyframes rotacao_desaparece
-{ /*define uma animação em que um elemento "desaparece indo para cima"*/
-
-    from
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-}
-
-
-/*para as animações serão criadas classes para que possam ser controladas pelo JS*/
-.rotacao-aparece
-{
-    animation: rotacao_aparece 0.5s ease-out-in;
-}
-
-.rotacao-desaparece
-{
-    animation: rotacao_desaparece 0.5s ease-out-in;
 }
