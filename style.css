@@ -1,207 +1,198 @@
-body
-{
+:root {
+    --bg-color: #f4f2f7; 
+    --surface-color: #ffffff; 
+    --primary-text-color: #1a102c;
+    --secondary-text-color: #6d6a7f; 
+    --accent-color: #5856d6; 
+    --border-color: #e0ddeb;
+    --selection-color: #e8e7ff; 
+}
+
+* {
     margin: 0;
-    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-/****** PRIMEIRA TELA ******/
-#conteiner_telaPrincipal
-{
-    height: 100%;
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: repeat(20,1fr);
-    grid-template-rows: repeat(20,1fr);
-    background-color: #470047;
-}
-
-#telaPrincipal
-{
-    grid-column: 3/16;
-    grid-row: 3;
-}
-
-#texto_telaPrincipal
-{
-    font-family: sans-serif;
-    color: antiquewhite;
-}
-
-
-
-#cyclingWord
-{
-    display: inline-block;
-    color:rgb(127, 214, 255);
-    transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
-}
-
-#botao_telaPrincipal
-{
-    grid-column: 12;
-    grid-row: 3;
-    place-self: center;
-}
-
-#botao_transicao_primeiraTela_segundaTela
-{
-    all:unset;
-    cursor: pointer;
-}
-.material-symbols-outlined
-{
-    background: none;
-    color:rgb(127, 214, 255);
-}
-
-@keyframes rotacao_aparece
-{
-    /*define uma animação em que um elemento "aparece vindo de baixo"*/
-    from
-    {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-@keyframes rotacao_desaparece
-{ /*define uma animação em que um elemento "desaparece indo para cima"*/
-
-    from
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to
-    {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-}
-
-
-/*para as animações serão criadas classes para que possam ser controladas pelo JS*/
-.rotacao_aparece
-{
-    animation: rotacao_aparece 0.5s ease-in;
-}
-
-.rotacao_desaparece
-{
-    animation: rotacao_desaparece 0.5s ease-out;
-}
-
-.animacao_escondeTela
-{
-    animation: rotacao_desaparece 0.5s;
-    
-}
-
-.escondeTela
-{
-    display: none !important;
-}
-
-
-
-
-
-/****** SEGUNDA TELA ******/
-
-#segundaTela
-{
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #F7F7F7;
+    font-size: 1em;
+}
+
+#conteiner_gerenciador {
+    width: 70%;
+    height: 100%;
+    background-color: var(--surface-color);
+    border-radius: 1em;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    overflow: hidden;
+    box-shadow: 0 .75em 2em rgba(0,0,0,0.1);
+}
+
+#sidebar {
+    background-color: var(--bg-color);
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+#areaPrincipal {
+    padding: 1.5em 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+#categoria_tarefas {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.tipo_categoria {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tipo_categoria:hover {
+    background-color: var(--surface-color);
+    color: var(--primary-text-color);
+}
+
+.tipo_categoria.active {
+    background-color: var(--surface-color);
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+#escopo_gerenciamento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+#escolha_mes {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary-text-color);
+
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    outline: none;
+
     overflow: hidden;
 }
 
-
-#tela_selecao_escopoDePlanejamento
-{
-    display:grid;
-    grid-template-columns: repeat(3,25%);
-    gap: 2em;
-    justify-content: space-evenly;
-    font-family: sans-serif;
-    
-    font-family: sans-serif;
-    color: #1a1a1a;
+#escolha_mes option {
+    font-size: 1rem;
+    font-weight: 400; 
 }
 
-.escopoPlano
-{
+
+#escolhaMes_ou_pesquisa {
     display: flex;
-    flex-direction: column; 
-    align-self: center;
-    padding: 1em;
-    text-align: left;
-    border-radius: 1em;
-    box-shadow:  0 .75em 2em rgba(71, 0, 71, 0.603);
+    align-items: center;
+    gap: 1em;
+}
+
+#search_bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+}
+
+#search_bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--primary-text-color);
+    margin-left: 0.5em;
+}
+
+#search_bar .material-symbols-outlined {
+    color: var(--secondary-text-color);
+}
+
+#botao_perfil {
+    background: none;
+    border: none;
+    color: var(--primary-text-color);
     cursor: pointer;
-
-    height: 5em; 
+    position: relative;
 }
 
-.tipoEscopo
-{
-    text-align: center;
+#tarefas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
 }
 
-.textoEscopo
-{
-  opacity: 0;
-  max-height: 0;
-  margin: 0;
-  transition: opacity 0s;
+.tarefaEspecifica {
+    background-color: var(--bg-color);
+    padding: 1em;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.2em solid transparent;
+    transition: border-color 0.3s;
 }
 
-
-#mensal
-{
-    transition: min-height 0.5s;
+.tarefaEspecifica.overdue {
+    border-color: var(--accent-color);
 }
 
-#semanal
-{
-    transition: min-height 0.5s;
+.tarefaEspecifica.selected {
+    background-color: var(--selection-color);
 }
 
-#diario
-{
-    transition: min-height 0.5s;
-
+.informacao_tarefa {
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 
-#mensal:hover
-{
-    min-height: 10em;
+.checkbox {
+    cursor: pointer;
+    color: var(--secondary-text-color);
 }
 
-#semanal:hover
-{
-    min-height: 10em;
+.checkbox.checked {
+    color: var(--accent-color);
 }
 
-#diario:hover
-{
-    min-height: 10em;
+button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.escopoPlano:hover .textoEscopo
-{
-    opacity:1;
-    font-size: inherit;
-    transition: opacity 0.5s;
+.botao_adicionaTarefa {
+    color: var(--secondary-text-color);
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
