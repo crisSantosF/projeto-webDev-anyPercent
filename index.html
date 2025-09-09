@@ -14,103 +14,69 @@
     <div id="conteiner_gerenciador">
         <aside id="sidebar">
             <nav id="categoria_tarefas">
-
                 <a href="#" class="tipo_categoria">
                     <span class="material-symbols-outlined">event</span> Por vir
                 </a>
                 <a href="#" class="tipo_categoria">
-                    <span class="material-symbols-outlined">work</span> Finalizadas
+                    <span class="material-symbols-outlined">check_circle</span> Finalizadas
                 </a>
                 <a href="#" class="tipo_categoria">
-                    <span class="material-symbols-outlined">person</span> Atrasadas
+                    <span class="material-symbols-outlined">hourglass_empty</span> Atrasadas
                 </a>
-
             </nav>
         </aside>
 
         <main id="areaPrincipal">
-            <header id="escopo_gerenciamento">
-                <select id="escolha_mes" class="mb" name="mes_de_escolha">
-                    <option class="titulo">Janeiro</option>
-                    <option class="titulo">Fevereiro</option>
-                    <option class="titulo">Março</option>
-                    <option class="titulo">Abril</option>
-                    <option class="titulo">Maio</option>
-                    <option class="titulo">Agosto</option>
-                    <option class="titulo">Setembro</option>
-                    <option class="titulo">Outubro</option>
-                    <option class="titulo">Novembro</option>
-                    <option class="titulo">Dezembro</option>
-                </select>
+            <header id="conteiner_escopoGerenciamento">
+                <div id="escopoAtual">
+                    <select id="escolha_mes" class="mb" name="mes_de_escolha">
+                        <option class="titulo">Janeiro</option>
+                        <option class="titulo">Fevereiro</option>
+                        <option class="titulo">Março</option>
+                        <option class="titulo">Abril</option>
+                        <option class="titulo">Maio</option>
+                        <option class="titulo">Agosto</option>
+                        <option class="titulo">Setembro</option>
+                        <option class="titulo">Outubro</option>
+                        <option class="titulo">Novembro</option>
+                        <option class="titulo">Dezembro</option>
+                    </select>
+                </div>
+                
+                <div id="trocaEscopo">
+                    <button>
+                        <span class="botao_trocaEscopo">Mensal</span>
+                    </button>
+
+                    <button class="botao_trocaEscopo">
+                        <span>Semanal</span>
+                    </button>
+
+                    <button class="botao_trocaEscopo">
+                        <span>Diário</span>
+                    </button>
+                </div>
+
                 <div id="escolhaMes_ou_pesquisa">
-                    <div id="search_bar">
-                        <span class="material-symbols-outlined">search</span>
-                        <input type="text" placeholder="Algo em específico?">
-                    </div>
                     <button id="botao_perfil">
                         <span class="material-symbols-outlined">person</span>
-                        <span></span>
                     </button>
                 </div>
             </header>
 
-            <section id="tarefas">
-                <div class="tarefaEspecifica">
-                    <div class="informacao_tarefa">
-                        <span class="material-symbols-outlined checkbox">radio_button_unchecked</span>
+            <div id=area_tarefas>
+                <button id="botao_adicionaTarefa">
+                    <div id="conteiner_botao_adicionaTarefa">
                         <p class="texto_tarefa">Adicionar tarefa</p>
                     </div>
-                    <button class="botao_adicionaTarefa">
-                        <span class="material-symbols-outlined">add</span>
-                    </button>
-                </div>
+                </button>
 
-                <div class="tarefaEspecifica">
-                    <div class="informacao_tarefa">
-                         <span class="material-symbols-outlined checkbox">radio_button_unchecked</span>
-                        <p class="texto_tarefa">Adicionar tarefa</p>
-                    </div>
-                    <button class="botao_adicionaTarefa">
-                        <span class="material-symbols-outlined">add</span>
-                    </button>
-                </div>
-                
-                <div class="tarefaEspecifica">
-                    <div class="informacao_tarefa">
-                        <span class="material-symbols-outlined checkbox">radio_button_unchecked</span>
-                        <p class="texto_tarefa">Adicionar tarefa</p>
-                    </div>
-                    <div class="task-actions">
-                        <button class="botao_adicionaTarefa">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="tarefaEspecifica">
-                    <div class="informacao_tarefa">
-                        <span class="material-symbols-outlined checkbox">radio_button_unchecked</span>
-                        <p class="texto_tarefa">Adicionar tarefa</p>
-                    </div>
-                     <div class="task-actions">
-                        <button class="botao_adicionaTarefa">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                </div>
-
-                 <div class="tarefaEspecifica">
-                    <div class="informacao_tarefa">
-                        <span class="material-symbols-outlined checkbox">radio_button_unchecked</span>
-                        <p class="texto_tarefa">Adicionar tarefa</p>
-                    </div>
-                     <div class="task-actions">
-                        <button class="botao_adicionaTarefa">
-                            <span class="material-symbols-outlined">add</span>
-                        </button>
-                </div>
-            </section>
+                <section id="tarefas">               
+                </section>
+            </div>
         </main>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
