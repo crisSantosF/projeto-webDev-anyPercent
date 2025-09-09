@@ -15,7 +15,6 @@ function iniciar_rotacao()
 
 function trocar_palavra_e_aparecer() 
 {
-  
     palavra_rotatoria.classList.remove('rotacao-desaparece');
 
     index_palavras_para_rotacionar = (index_palavras_para_rotacionar + 1) % palavras_para_rotacionar.length;
@@ -80,77 +79,6 @@ botao_transicao.removeEventListener('clicked', botaoTransicao_clicado);
 */
 
 ////////////////////***TELA TAREFAS*** ////////////////////////
-
-
-//adição de tarefas
-const botao_adicionaTarefa = document.getElementById('botao_adicionaTarefa');
-const conteiner_tarefas = document.getElementById('tarefas');
-
-function cria_novaTarefa(textoTarefa)
-{
-    const conteiner_tarefaEspecifica = document.createElement('div');
-    conteiner_tarefaEspecifica.classList.add('tarefaEspecifica');
-
-    const conteiner_informacaoTarefa = document.createElement('div');
-    conteiner_informacaoTarefa.classList.add('informacaoTarefa');
-
-    const checagemTarefa = document.createElement('span');
-    checagemTarefa.classList.add('material-symbols-outlined', 'checkbox');
-    checagemTarefa.textContent = 'radio_button_unchecked';
-
-    const paragrafoTarefa = document.createElement('p');
-    paragrafoTarefa.textContent = textoTarefa;
-
-    conteiner_informacaoTarefa.appendChild(checagemTarefa);
-    conteiner_informacaoTarefa.appendChild(paragrafoTarefa);
-
-    conteiner_tarefaEspecifica.appendChild(conteiner_informacaoTarefa);
-
-    conteiner_tarefas.appendChild(conteiner_tarefaEspecifica);
-}
-
-function botao_novaTarefa_clicado()
-{
-    const textoTarefa = prompt('o que vamos fazer?');
-
-    if(textoTarefa && textoTarefa.trim() !== '')
-        cria_novaTarefa(textoTarefa);
-}
-
-botao_adicionaTarefa.addEventListener('click', botao_novaTarefa_clicado);
-
-//checagem de tarefas
-
-function tarefaChecada(event)
-{
-    if(event.target.classList.contains('checkbox'))
-    {
-        const checkBox_clicado = event.target;
-        const informacaoTarefa = checkBox_clicado.parentElement;
-        const textoTarefa = informacaoTarefa.querySelector('p');
-
-        //essa estrutura é meio nojenta, mas serve pra atribuir um booleano caso, nesse exemplo,
-        //o texto do elemento checkbox_clicado for igual a 'radio_button_checked'
-        const foiChecada = checkBox_clicado.textContent === 'radio_button_checked';
-
-        if(foiChecada)
-        {
-            checkBox_clicado.textContent = 'radio_button_unchecked';
-            checkBox_clicado.classList.remove('checked');
-            textoTarefa.classList.remove('tarefaConcluida');
-        }
-        else
-        {
-            checkBox_clicado.textContent = 'radio_button_checked';
-            checkBox_clicado.classList.add('checked');
-            textoTarefa.classList.add('tarefaConcluida');
-        }
-    }
-}
-
-
-conteiner_tarefas.addEventListener('click', tarefaChecada);
-
 
 //troca de escopo
 
@@ -238,3 +166,107 @@ function trocaEscopo(event)
 }
 
 botao_trocaEscopo.addEventListener('click', trocaEscopo);
+
+
+
+//adição de tarefas
+
+
+const botao_adicionaTarefa = document.getElementById('botao_adicionaTarefa');
+const conteiner_tarefas = document.getElementById('tarefas');
+
+function cria_novaTarefa(textoTarefa)
+{
+    const conteiner_tarefaEspecifica = document.createElement('div');
+    conteiner_tarefaEspecifica.classList.add('tarefaEspecifica');
+
+    const conteiner_informacaoTarefa = document.createElement('div');
+    conteiner_informacaoTarefa.classList.add('informacaoTarefa');
+
+    const checagemTarefa = document.createElement('span');
+    checagemTarefa.classList.add('material-symbols-outlined', 'checkbox');
+    checagemTarefa.textContent = 'radio_button_unchecked';
+
+    const paragrafoTarefa = document.createElement('p');
+    paragrafoTarefa.textContent = textoTarefa;
+
+    const conteiner_botao_deletarTarefa = document.createElement('div');
+
+    const botao_deletarTarefa = document.createElement('span');
+    botao_deletarTarefa.classList.add('material-symbols-outlined', 'botao_deletaTarefa');
+    botao_deletarTarefa.textContent = 'delete';
+
+    conteiner_informacaoTarefa.appendChild(checagemTarefa);
+    conteiner_informacaoTarefa.appendChild(paragrafoTarefa);
+
+    conteiner_tarefaEspecifica.appendChild(conteiner_informacaoTarefa);
+    
+    conteiner_botao_deletarTarefa.appendChild(botao_deletarTarefa);
+    conteiner_tarefaEspecifica.appendChild(conteiner_botao_deletarTarefa);
+
+    conteiner_tarefas.appendChild(conteiner_tarefaEspecifica);
+
+}
+
+function botao_novaTarefa_clicado()
+{
+    const textoTarefa = prompt('o que vamos fazer?');
+
+    if(textoTarefa && textoTarefa.trim() !== '')
+        cria_novaTarefa(textoTarefa);
+}
+
+botao_adicionaTarefa.addEventListener('click', botao_novaTarefa_clicado);
+
+//checagem de tarefas
+
+function tarefaChecada(event)
+{
+    const icone_clicado = event.target;
+    const informacaoTarefa = icone_clicado.parentElement;
+
+    if(event.target.classList.contains('checkbox'))
+    {
+        const textoTarefa = informacaoTarefa.querySelector('p');
+
+        //essa estrutura é meio nojenta, mas serve pra atribuir um booleano caso, nesse exemplo,
+        //o texto do elemento icone_clicado for igual a 'radio_button_checked'
+        const foiChecada = icone_clicado.textContent === 'radio_button_checked';
+
+        if(foiChecada)
+        {
+            icone_clicado.textContent = 'radio_button_unchecked';
+            icone_clicado.classList.remove('checked');
+            textoTarefa.classList.remove('tarefaConcluida');
+        }
+        else
+        {
+            icone_clicado.textContent = 'radio_button_checked';
+            icone_clicado.classList.add('checked');
+            textoTarefa.classList.add('tarefaConcluida');
+        }
+    }
+
+    else if(icone_clicado.classList.contains('botao_deletaTarefa'))
+    {
+        const confirma_deleta = confirm('tem certeza?');
+
+        if(confirma_deleta)
+        {
+            //tarefa para remover vai procurar o elemento mais próximo que tiver a STRING  oassada como parametro
+            //portanto não basta só passar o nome da classe ou id, tem que botar o indicador de acordo ('.' no caso de classe
+            // e '#' no caso de id) pois ele é um seletor de CSS
+            const tarefa_para_remover = icone_clicado.closest('.tarefaEspecifica');
+
+            if(tarefa_para_remover)
+            {
+                tarefa_para_remover.remove();
+            }
+            
+        }
+    }
+
+}
+
+
+conteiner_tarefas.addEventListener('click', tarefaChecada);

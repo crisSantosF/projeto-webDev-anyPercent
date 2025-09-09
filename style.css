@@ -303,6 +303,12 @@ button
     justify-content: flex-start;
 }
 
+.botao_deletaTarefa
+{
+    align-items: flex-end;
+    cursor: pointer;
+}
+
 .task-actions {
     display: flex;
     align-items: center;
