@@ -195,6 +195,8 @@ function trocaEscopo(event)
         novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia} - ${ultimoDia_filtrado}/${mes_ultimoDia}`;
     
         escopoAtual.replaceWith(novoEscopo);
+
+
     }
     else if(escopo_de_escolha.textContent.trim().toLowerCase() === 'diário')
     {
@@ -205,6 +207,33 @@ function trocaEscopo(event)
         novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia}`;
      
         escopoAtual.replaceWith(novoEscopo);
+    }
+    else
+    {
+        const escopoAtual = document.getElementById('escopoAtual');
+
+        const novoEscopo = `<div id="escopoAtual">
+                                <select id="escolha_mes" class="mb" name="mes_de_escolha">
+                                    <option class="titulo">Janeiro</option>
+                                    <option class="titulo">Fevereiro</option>
+                                    <option class="titulo">Março</option>
+                                    <option class="titulo">Abril</option>
+                                    <option class="titulo">Maio</option>
+                                    <option class="titulo">Junho</option>
+                                    <option class="titulo">Julho</option>
+                                    <option class="titulo">Agosto</option>
+                                    <option class="titulo">Setembro</option>
+                                    <option class="titulo">Outubro</option>
+                                    <option class="titulo">Novembro</option>
+                                    <option class="titulo">Dezembro</option>
+                                </select>
+                            </div>`
+                            
+
+        escopoAtual.outerHTML = novoEscopo;
+
+        const seletorMes = document.getElementById('escolha_mes');
+        seletorMes.selectedIndex = mes_primeiroDia - 1;
     }
 }
 
