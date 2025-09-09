@@ -1,6 +1,5 @@
 :root 
 {
-
     --bg-color: #EAE6F5;   
     --surface-color: #ffffff; 
     --primary-text-color: #1a102c;
@@ -10,15 +9,215 @@
     --selection-color: #e8e7ff;
 }
 
-* 
-{
-    margin: 0;
-    padding: 0;
 
-    box-sizing: border-box;
+body
+{
+    font-family: 'Inter', sans-serif;
+
+    margin: 0;
+    overflow: hidden;
 }
 
-body 
+
+/****** PRIMEIRA TELA ******/
+#conteiner-telaPrincipal
+{
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(20,1fr);
+    grid-template-rows: repeat(20,1fr);
+    background-color: var(--primary-text-color);
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+#tela_principal
+{
+    grid-column: 3/16;
+    grid-row: 3;
+}
+
+#texto_tela_principal
+{
+    font-family: sans-serif;
+    color: var(--border-color);
+}
+
+
+
+#cycling_word
+{
+    display: inline-block;
+    color: var(--accent-color);
+    transition: color 0.5s; /*define o tempo de duração de uma transição, mas não define uma transição*/
+}
+
+#botao_tela_principal
+{
+    grid-column: 12;
+    grid-row: 3;
+    place-self: center;
+}
+
+#botao-transicao-primeiraTela-segundaTela
+{
+    all:unset;
+    cursor: pointer;
+}
+.material-symbols-outlined
+{
+    background: none;
+    color: var(--accent-color);
+}
+
+@keyframes rotacao_aparece
+{
+    /*define uma animação em que um elemento "aparece vindo de baixo"*/
+    from
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes rotacao_desaparece
+{ /*define uma animação em que um elemento "desaparece indo para cima"*/
+
+    from
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+}
+
+
+/*para as animações serão criadas classes para que possam ser controladas pelo JS*/
+.rotacao-aparece
+{
+    animation: rotacao_aparece 0.5s ease-in;
+}
+
+.rotacao-desaparece
+{
+    animation: rotacao_desaparece 0.5s ease-out;
+}
+
+
+
+/****** SEGUNDA TELA ******/
+
+.animacao-esconde-tela
+{
+    animation: rotacao_desaparece 0.5s;
+    
+}
+
+.esconde-tela
+{
+    display: none !important;
+}
+
+#segunda-tela
+{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    overflow: hidden;
+}
+
+#tela-selecao-escopoDePlanejamento
+{
+    display:grid;
+    grid-template-columns: repeat(3,25%);
+    gap: 2em;
+    justify-content: space-evenly;
+    font-family: sans-serif;
+    
+    font-family: sans-serif;
+    color: #1a1a1a;
+}
+
+.escopo-plano
+{
+    display: flex;
+    flex-direction: column; 
+    align-self: center;
+    padding: 1em;
+    text-align: left;
+    border-radius: 1em;
+    box-shadow:  0 0.1em 1em rgba(26, 16, 44, 1);
+    cursor: pointer;
+
+    height: 5em; 
+}
+
+.texto-escopo
+{
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  transition: opacity 0s;
+}
+
+
+#mensal
+{
+    transition: min-height 0.5s;
+}
+
+#semanal
+{
+    transition: min-height 0.5s;
+}
+
+#diario
+{
+    transition: min-height 0.5s;
+
+}
+
+#mensal:hover
+{
+    min-height: 10em;
+}
+
+#semanal:hover
+{
+    min-height: 10em;
+}
+
+#diario:hover
+{
+    min-height: 10em;
+}
+
+.escopo-plano:hover .texto-escopo
+{
+    opacity:1;
+    font-size: inherit;
+    transition: opacity 0.5s;
+}
+
+/* //// TELA TAREFAS //// */
+
+#telaTarefas 
 {
     min-height: 100vh;
     
@@ -136,7 +335,6 @@ body
 
 #escopoAtual
 {
-    font-family: 'Inter', sans-serif;
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--primary-text-color); 
@@ -145,7 +343,6 @@ body
 
 #escolha_mes 
 {
-    font-family: 'Inter', sans-serif;
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--primary-text-color);
@@ -251,6 +448,7 @@ body
     text-decoration: line-through;
     color: var(--secondary-text-color);
 }
+
 .informacaoTarefa
 {
     display: flex;          
@@ -262,13 +460,14 @@ body
 {
     display: flex;
     align-items: center;
-    gap: 1em;
 
     border-radius: 1em;
     border-color: var(--accent-color);
     border-width: 0.15em;
     border-style: solid;
-    padding: 0.5em;
+
+    padding: 0;
+
     transition:background-color 0.3s, color 0.3s;
 }
 
@@ -301,6 +500,12 @@ button
 #botao_adicionaTarefa {
     color: var(--secondary-text-color);
     justify-content: flex-start;
+}
+
+.botao_deletaTarefa
+{
+    align-items: flex-end;
+    cursor: pointer;
 }
 
 .task-actions {

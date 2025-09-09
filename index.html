@@ -11,72 +11,119 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="conteiner_gerenciador">
-        <aside id="sidebar">
-            <nav id="categoria_tarefas">
-                <a href="#" class="tipo_categoria">
-                    <span class="material-symbols-outlined">event</span> Por vir
-                </a>
-                <a href="#" class="tipo_categoria">
-                    <span class="material-symbols-outlined">check_circle</span> Finalizadas
-                </a>
-                <a href="#" class="tipo_categoria">
-                    <span class="material-symbols-outlined">hourglass_empty</span> Atrasadas
-                </a>
-            </nav>
-        </aside>
 
-        <main id="areaPrincipal">
-            <header id="conteiner_escopoGerenciamento">
-                <div id="escopoAtual">
-                    <select id="escolha_mes" class="mb" name="mes_de_escolha">
-                        <option class="titulo">Janeiro</option>
-                        <option class="titulo">Fevereiro</option>
-                        <option class="titulo">Março</option>
-                        <option class="titulo">Abril</option>
-                        <option class="titulo">Maio</option>
-                        <option class="titulo">Junho</option>
-                        <option class="titulo">Julho</option>
-                        <option class="titulo">Agosto</option>
-                        <option class="titulo">Setembro</option>
-                        <option class="titulo">Outubro</option>
-                        <option class="titulo">Novembro</option>
-                        <option class="titulo">Dezembro</option>
-                    </select>
-                </div>
+    <div id="conteiner-telaPrincipal">
+            <main id="tela_principal">
+                <header> 
+                    <h1 id="texto_tela_principal">
+                        Vamos traçar seu planejamento
+                            <span id="cycling_word"> mensal</span>
+                    </h1>
+                </header>
+            </main>
 
-                <div id="trocaEscopo">
-                    <button>
-                        <span class="botao_trocaEscopo">Mensal</span>
-                    </button>
-
-                    <button class="botao_trocaEscopo">
-                        <span>Semanal</span>
-                    </button>
-
-                    <button class="botao_trocaEscopo">
-                        <span>Diário</span>
-                    </button>
-                </div>
-
-                <div id="escolhaMes_ou_pesquisa">
-                    <button id="botao_perfil">
-                        <span class="material-symbols-outlined">person</span>
-                    </button>
-                </div>
-            </header>
-
-            <div id=area_tarefas>
-                <button id="botao_adicionaTarefa">
-                    <div id="conteiner_botao_adicionaTarefa">
-                        <p class="texto_tarefa">Adicionar tarefa</p>
-                    </div>
+            <div id="botao_tela_principal">
+                <button id="botao-transicao-primeiraTela-segundaTela">
+                    <span class="material-symbols-outlined">arrow_drop_down_circle</span>
                 </button>
-
-                <section id="tarefas">               
-                </section>
             </div>
-        </main>
+    </div>
+
+    <div class="esconde-tela" id="segunda-tela_aux">
+        <div id="segunda-tela">
+            <section>
+                <div id="tela-selecao-escopoDePlanejamento">
+
+                    <div class="escopo-plano" id="mensal">
+                        <h2 class="tipo-escopo"> Mensal</h2>
+                        <p class="texto-escopo">Defina suas metas de mais longo prazo como, por exemplo, "terminar 40% do meu projeto".</p>
+                    </div>
+
+                    <div class="escopo-plano" id="semanal">
+                        <h2 class="tipo-escopo"> Semanal</h2>
+                        <p class="texto-escopo">Quebre seus objetivos mensais em passos menores, como "desenvolver a tela de login".</p>
+                    </div>
+
+                    <div class="escopo-plano" id="diario">
+                        <h2 class="tipo-escopo"> Diário</h2>
+                        <p class="texto-escopo">Foque no que pode ser feito agora.</p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="escondeTela" id="telaTarefas_aux">
+        <div id="telaTarefas">
+            <div id="conteiner_gerenciador">
+                <aside id="sidebar">
+                    <nav id="categoria_tarefas">
+                        <a href="#" class="tipo_categoria">
+                            <span class="material-symbols-outlined">event</span> Por vir
+                        </a>
+                        <a href="#" class="tipo_categoria">
+                            <span class="material-symbols-outlined">check_circle</span> Finalizadas
+                        </a>
+                        <a href="#" class="tipo_categoria">
+                            <span class="material-symbols-outlined">hourglass_empty</span> Atrasadas
+                        </a>
+                    </nav>
+                </aside>
+
+                <main id="areaPrincipal">
+                    <header id="conteiner_escopoGerenciamento">
+                        <div id="escopoAtual">
+                            <select id="escolha_mes" class="mb" name="mes_de_escolha">
+                                <option class="titulo">Janeiro</option>
+                                <option class="titulo">Fevereiro</option>
+                                <option class="titulo">Março</option>
+                                <option class="titulo">Abril</option>
+                                <option class="titulo">Maio</option>
+                                <option class="titulo">Junho</option>
+                                <option class="titulo">Julho</option>
+                                <option class="titulo">Agosto</option>
+                                <option class="titulo">Setembro</option>
+                                <option class="titulo">Outubro</option>
+                                <option class="titulo">Novembro</option>
+                                <option class="titulo">Dezembro</option>
+                            </select>
+                        </div>
+
+                        <div id="trocaEscopo">
+                            <button>
+                                <span class="botao_trocaEscopo">Mensal</span>
+                            </button>
+
+                            <button class="botao_trocaEscopo">
+                                <span>Semanal</span>
+                            </button>
+
+                            <button class="botao_trocaEscopo">
+                                <span>Diário</span>
+                            </button>
+                        </div>
+
+                        <div id="escolhaMes_ou_pesquisa">
+                            <button id="botao_perfil">
+                                <span class="material-symbols-outlined">person</span>
+                            </button>
+                        </div>
+                    </header>
+
+                    <div id=area_tarefas>
+                        <button id="botao_adicionaTarefa">
+                            <div id="conteiner_botao_adicionaTarefa">
+                                <p class="texto_tarefa">Adicionar tarefa</p>
+                            </div>
+                        </button>
+
+                        <section id="tarefas">               
+                        </section>
+                    </div>
+                </main>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
