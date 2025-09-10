@@ -1,31 +1,80 @@
+document.addEventListener('DOMContentLoaded', () =>
+{
+    const TelaSalva = sessionStorage.getItem('ID_telaAtual');
+
+    if(!TelaSalva)
+        return;
+
+    const todasTelas = document.querySelectorAll('.conteiner_tela');
+
+    //esconde tedas as telas
+    todasTelas.forEach(tela =>
+    {
+        tela.classList.add('esconde-tela')
+    });
+
+    //pega a tela salva no ultimo uso
+    const tela_para_retornar = document.getElementById(TelaSalva);
+
+    tela_para_retornar.classList.remove('esconde-tela');
+
+
+    //ajusta o texto do escopo das tarefas na tela de tarefas
+    const escopoSalvo = sessionStorage.getItem('escopoSalvo')
+
+
+
+    if(!escopoSalvo)
+        return;
+
+    const dataSalva_string_para_objeto = JSON.parse(escopoSalvo);
+})
+
+
+
+
+
 //////////////////** MÉTODOS PARA CAPTURA DA DATA ATUAL **////////////////
-const cincoHoras = 5000000;
 
-const dataAtual = new Date();
-const primeiroDia_semana = new Date(dataAtual);
+function atualizaData()
+{
+    const dataAtual = new Date();
+    const primeiroDia_semana = new Date(dataAtual);
 
-//getDate é o dia do mes (1-31) e getDay é o dia da semana (0-6)
-//portanto getDate - getDay = primeiro dia da semana e o + 1 é pois, por padrão,
-//o prieiro dia do objeto date é domingo
+    //getDate é o dia do mes (1-31) e getDay é o dia da semana (0-6)
+    //portanto getDate - getDay = primeiro dia da semana e o + 1 é pois, por padrão,
+    //o prieiro dia do objeto date é domingo
 
-//setDate lida com as possiveis complicações de, por exemplo , primeiroDia + 6 for maior
-// que o ultimo dia do mes do primeiro dia (28 de fevereiro + 6, por exemplo)
-// mas ele retorna um giga inteiro que conts milissegundos e ele altera os objetos aos quais
-//ele é aplicadp, então deve se criar cópias para não dar confusão
-primeiroDia_semana.setDate(dataAtual.getDate() - dataAtual.getDay() + 1);
+    //setDate lida com as possiveis complicações de, por exemplo , primeiroDia + 6 for maior
+    // que o ultimo dia do mes do primeiro dia (28 de fevereiro + 6, por exemplo)
+    // mas ele retorna um giga inteiro que conts milissegundos e ele altera os objetos aos quais
+    //ele é aplicadp, então deve se criar cópias para não dar confusão
+    primeiroDia_semana.setDate(dataAtual.getDate() - dataAtual.getDay() + 1);
 
-//nesse caso eu criei uma cópia do primeiro new Date() e depois criei uma outra cópia,
-//mas do primeiroDia para lidar com o setDate de acordo, filtrando as coplicações de 
-// ultimoDia > 31, por exemplo.
-const ultimoDia_semana = new Date(primeiroDia_semana);
-ultimoDia_semana.setDate(primeiroDia_semana.getDate() + 6);
+    //nesse caso eu criei uma cópia do primeiro new Date() e depois criei uma outra cópia,
+    //mas do primeiroDia para lidar com o setDate de acordo, filtrando as coplicações de 
+    // ultimoDia > 31, por exemplo.
+    const ultimoDia_semana = new Date(primeiroDia_semana);
+    ultimoDia_semana.setDate(primeiroDia_semana.getDate() + 6);
 
-const primeiroDia_filtrado = primeiroDia_semana.getDate();
-const ultimoDia_filtrado = ultimoDia_semana.getDate();
+    const primeiroDia_filtrado = primeiroDia_semana.getDate();
+    const ultimoDia_filtrado = ultimoDia_semana.getDate();
 
-// getMonth() + 1 pois getMonth() é 0indexed, então setembro, 9, acaba sendo 8
-const mes_primeiroDia = primeiroDia_semana.getMonth() + 1;
-const mes_ultimoDia = ultimoDia_semana.getMonth() + 1;
+    // getMonth() + 1 pois getMonth() é 0indexed, então setembro, 9, acaba sendo 8
+    const mes_primeiroDia = primeiroDia_semana.getMonth() + 1;
+    const mes_ultimoDia = ultimoDia_semana.getMonth() + 1;
+
+    //javascript forçando-me a abandonar a civilidade e por chaves ao lado do negócio declarado
+    //se não for 'return{
+    //}'
+    //ele fresqueia e não da certo
+    return{
+        primeiroDia_filtrado,
+        ultimoDia_filtrado,
+        mes_primeiroDia,
+        mes_ultimoDia,
+    }
+}
 
 
 
@@ -35,7 +84,6 @@ const mes_ultimoDia = ultimoDia_semana.getMonth() + 1;
 
 const palavra_rotatoria = document.getElementById('cycling_word');
 const palavras_para_rotacionar = ['mensal', 'semanal', 'diário'];
-const animacao_atual = ['aparece', 'desaparece'];
 
 let index_palavras_para_rotacionar = 0;
 let trava_rotacaoPalavras = 0;
@@ -79,10 +127,6 @@ palavra_rotatoria.addEventListener('animationend', gerente_trocaPalavra_ou_rotac
 // Inicia o primeiro ciclo de todos.
 trava_rotacaoPalavras = setTimeout(iniciar_rotacao, 2000);
 
-
-////////////////////***SEGUNDA TELA*** ////////////////////////
-
-
 const botao_transicao = document.getElementById('botao-transicao-primeiraTela-segundaTela');
 const primeira_tela = document.getElementById('conteiner-telaPrincipal');
 const segunda_tela = document.getElementById('segunda-tela_aux');
@@ -91,6 +135,11 @@ function espera_transicao_primeiraSegunda_telas()
 {    
     segunda_tela.classList.remove('esconde-tela');
     primeira_tela.classList.add('esconde-tela');
+
+    //sessionStorage.setItem cria um mapa com par (chave,valor) e salva ele no cache do navegador
+    // nesse case ele é usado para criar um método para achar o id da tela que se tornará atual
+    // ao árear esse id com ID_telaAtual
+    sessionStorage.setItem('ID_telaAtual', 'segunda-tela_aux')
 
     clearTimeout(trava_rotacaoPalavras);
     palavra_rotatoria.removeEventListener('animationend', gerente_trocaPalavra_ou_rotacaoPalavra);
@@ -107,6 +156,12 @@ function botaoTransicao_para_segundaTela()
 botao_transicao.addEventListener('click', botaoTransicao_para_segundaTela);
 
 
+
+
+
+////////////////////***SEGUNDA TELA*** ////////////////////////
+
+
 //remoção de event listeners que não serão mais usados
 primeira_tela.removeEventListener('animationend', espera_transicao_primeiraSegunda_telas);
 botao_transicao.removeEventListener('clicked', botaoTransicao_para_segundaTela);
@@ -118,66 +173,96 @@ const telaTarefas = document.getElementById('telaTarefas_aux');
 function transicao_para_telaTarefas()
 {
     segunda_tela.classList.add('esconde-tela');
-
     telaTarefas.classList.remove('esconde-tela');
+
+    sessionStorage.setItem('ID_telaAtual', 'telaTarefas_aux')
 }
 
 function botao_transicao_para_telaTarefas(event)
 {
-    const escopo_de_escolha = event.target;
+    const escopo_de_escolha = event.target.closest('.escopo-plano');
 
-    if(escopo_de_escolha.textContent.trim().toLowerCase() === 'mensal')
+    let datasAtualizadas = atualizaData();
+
+    let datas_para_salvar = {};
+
+    switch(escopo_de_escolha.id)
     {
-        const escopoAtual = document.getElementById('escopoAtual');
+        case 'mensal':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
 
-        const novoEscopo = `<div id="escopoAtual">
-                                <select id="escolha_mes" class="mb" name="mes_de_escolha">
-                                    <option class="titulo">Janeiro</option>
-                                    <option class="titulo">Fevereiro</option>
-                                    <option class="titulo">Março</option>
-                                    <option class="titulo">Abril</option>
-                                    <option class="titulo">Maio</option>
-                                    <option class="titulo">Junho</option>
-                                    <option class="titulo">Julho</option>
-                                    <option class="titulo">Agosto</option>
-                                    <option class="titulo">Setembro</option>
-                                    <option class="titulo">Outubro</option>
-                                    <option class="titulo">Novembro</option>
-                                    <option class="titulo">Dezembro</option>
-                                </select>
-                            </div>`
-                            
+            const novoEscopo = `<div id="escopoAtual">
+                                    <select id="escolha_mes" class="mb" name="mes_de_escolha">
+                                        <option class="titulo">Janeiro</option>
+                                        <option class="titulo">Fevereiro</option>
+                                        <option class="titulo">Março</option>
+                                        <option class="titulo">Abril</option>
+                                        <option class="titulo">Maio</option>
+                                        <option class="titulo">Junho</option>
+                                        <option class="titulo">Julho</option>
+                                        <option class="titulo">Agosto</option>
+                                        <option class="titulo">Setembro</option>
+                                        <option class="titulo">Outubro</option>
+                                        <option class="titulo">Novembro</option>
+                                        <option class="titulo">Dezembro</option>
+                                    </select>
+                                </div>`;
+                                
 
-        escopoAtual.outerHTML = novoEscopo;
+            escopoAtual.outerHTML = novoEscopo;
 
-        const seletorMes = document.getElementById('escolha_mes');
-        seletorMes.selectedIndex = mes_primeiroDia - 1;
+            const seletorMes = document.getElementById('escolha_mes');
+            seletorMes.selectedIndex = datasAtualizadas.mes_primeiroDia - 1;
+
+            datas_para_salvar = {
+                tipo: 'mensal',
+                mes: seletorMes.selectedIndex
+            };
+
+            break;
+        }
+        case 'semanal':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
+
+            const novoEscopo = document.createElement('div');
+            novoEscopo.id = 'escopoAtual';
+            novoEscopo.textContent = `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia} - ${datasAtualizadas.ultimoDia_filtrado}/${datasAtualizadas.mes_ultimoDia}`;
+        
+            escopoAtual.replaceWith(novoEscopo);
+
+            datas_para_salvar = {
+                tipo: 'semanal',
+                semana: `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia} - ${datasAtualizadas.ultimoDia_filtrado}/${datasAtualizadas.mes_ultimoDia}`
+            };
+
+            break;
+        }
+        case 'diario':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
+
+            const novoEscopo = document.createElement('div');
+            novoEscopo.id = 'escopoAtual';
+            novoEscopo.textContent = `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia}`;
+        
+            escopoAtual.replaceWith(novoEscopo);  
+
+            datas_para_salvar = {
+                tipo: 'diario',
+                dia: `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia}`
+            };   
+
+            break;
+        }
     }
-    else if(escopo_de_escolha.textContent.trim().toLowerCase() === 'semanal')
-    {
-        const escopoAtual = document.getElementById('escopoAtual');
-
-        const novoEscopo = document.createElement('div');
-        novoEscopo.id = 'escopoAtual';
-        novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia} - ${ultimoDia_filtrado}/${mes_ultimoDia}`;
-    
-        escopoAtual.replaceWith(novoEscopo);
-    }
-    else
-    {
-        const escopoAtual = document.getElementById('escopoAtual');
-
-        const novoEscopo = document.createElement('div');
-        novoEscopo.id = 'escopoAtual';
-        novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia}`;
-     
-        escopoAtual.replaceWith(novoEscopo);   
-    }
-
 
     segunda_tela.classList.add('animacao-esconde-tela');
 
-    segunda_tela.addEventListener('animationend', transicao_para_telaTarefas);
+    segunda_tela.addEventListener('animationend', transicao_para_telaTarefas, {once:true});
+
+    sessionStorage.setItem('escopoSalvo', JSON.stringify(datas_para_salvar));
 }
 
 const verifica_botaoClicado = document.getElementById('tela-selecao-escopoDePlanejamento')
@@ -198,53 +283,83 @@ function trocaEscopo(event)
 {
     const escopo_de_escolha = event.target;
 
-    if(escopo_de_escolha.textContent.trim().toLowerCase() === 'semanal')
+    let datasAtualizadas = atualizaData();
+
+    let datas_para_salvar = {};
+
+    switch(escopo_de_escolha.textContent.trim().toLowerCase())
     {
-        const escopoAtual = document.getElementById('escopoAtual');
+        case 'semanal':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
 
-        const novoEscopo = document.createElement('div');
-        novoEscopo.id = 'escopoAtual';
-        novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia} - ${ultimoDia_filtrado}/${mes_ultimoDia}`;
-    
-        escopoAtual.replaceWith(novoEscopo);
+            const novoEscopo = document.createElement('div');
+            novoEscopo.id = 'escopoAtual';
+            novoEscopo.textContent = `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia} - ${datasAtualizadas.ultimoDia_filtrado}/${datasAtualizadas.mes_ultimoDia}`;
+        
+            escopoAtual.replaceWith(novoEscopo);
+
+            datas_para_salvar = {
+                tipo: 'semanal',
+                dia: `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia} - ${datasAtualizadas.ultimoDia_filtrado}/${datasAtualizadas.mes_ultimoDia}`
+            };
+            
+            break;
+        }
+        case 'diário':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
+
+            const novoEscopo = document.createElement('div');
+            novoEscopo.id = 'escopoAtual';
+            novoEscopo.textContent = `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia}`;
+        
+            escopoAtual.replaceWith(novoEscopo);
+
+            datas_para_salvar = {
+                tipo: 'diario',
+                dia: `${datasAtualizadas.primeiroDia_filtrado}/${datasAtualizadas.mes_primeiroDia}`
+            }; 
+
+            break;
+        }
+        case 'mensal':
+        {
+            const escopoAtual = document.getElementById('escopoAtual');
+
+            const novoEscopo = `<div id="escopoAtual">
+                                    <select id="escolha_mes" class="mb" name="mes_de_escolha">
+                                        <option class="titulo">Janeiro</option>
+                                        <option class="titulo">Fevereiro</option>
+                                        <option class="titulo">Março</option>
+                                        <option class="titulo">Abril</option>
+                                        <option class="titulo">Maio</option>
+                                        <option class="titulo">Junho</option>
+                                        <option class="titulo">Julho</option>
+                                        <option class="titulo">Agosto</option>
+                                        <option class="titulo">Setembro</option>
+                                        <option class="titulo">Outubro</option>
+                                        <option class="titulo">Novembro</option>
+                                        <option class="titulo">Dezembro</option>
+                                    </select>
+                                </div>`
+                                
+
+            escopoAtual.outerHTML = novoEscopo;
+
+            const seletorMes = document.getElementById('escolha_mes');
+            seletorMes.selectedIndex = datasAtualizadas.mes_primeiroDia - 1;
+
+            datas_para_salvar = {
+                tipo: 'mensal',
+                dia: seletorMes.selectedIndex
+            }; 
+
+            break;
+        }
     }
-    else if(escopo_de_escolha.textContent.trim().toLowerCase() === 'diário')
-    {
-        const escopoAtual = document.getElementById('escopoAtual');
 
-        const novoEscopo = document.createElement('div');
-        novoEscopo.id = 'escopoAtual';
-        novoEscopo.textContent = `${primeiroDia_filtrado}/${mes_primeiroDia}`;
-     
-        escopoAtual.replaceWith(novoEscopo);
-    }
-    else
-    {
-        const escopoAtual = document.getElementById('escopoAtual');
-
-        const novoEscopo = `<div id="escopoAtual">
-                                <select id="escolha_mes" class="mb" name="mes_de_escolha">
-                                    <option class="titulo">Janeiro</option>
-                                    <option class="titulo">Fevereiro</option>
-                                    <option class="titulo">Março</option>
-                                    <option class="titulo">Abril</option>
-                                    <option class="titulo">Maio</option>
-                                    <option class="titulo">Junho</option>
-                                    <option class="titulo">Julho</option>
-                                    <option class="titulo">Agosto</option>
-                                    <option class="titulo">Setembro</option>
-                                    <option class="titulo">Outubro</option>
-                                    <option class="titulo">Novembro</option>
-                                    <option class="titulo">Dezembro</option>
-                                </select>
-                            </div>`
-                            
-
-        escopoAtual.outerHTML = novoEscopo;
-
-        const seletorMes = document.getElementById('escolha_mes');
-        seletorMes.selectedIndex = mes_primeiroDia - 1;
-    }
+    sessionStorage.setItem('escopoSalvo', JSON.stringify(datas_para_salvar));
 }
 
 botao_trocaEscopo.addEventListener('click', trocaEscopo);
