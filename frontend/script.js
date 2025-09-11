@@ -372,10 +372,12 @@ botao_trocaEscopo.addEventListener('click', trocaEscopo);
 const botao_adicionaTarefa = document.getElementById('botao_adicionaTarefa');
 const conteiner_tarefas = document.getElementById('tarefas');
 
-function cria_novaTarefa(textoTarefa)
+function cria_novaTarefa(Tarefa)
 {
     const conteiner_tarefaEspecifica = document.createElement('div');
     conteiner_tarefaEspecifica.classList.add('tarefaEspecifica');
+    //para integração ao backend
+    conteiner_tarefaEspecifica.dataset.id = Tarefa.id;
 
     const conteiner_informacaoTarefa = document.createElement('div');
     conteiner_informacaoTarefa.classList.add('informacaoTarefa');
@@ -384,6 +386,7 @@ function cria_novaTarefa(textoTarefa)
     checagemTarefa.classList.add('material-symbols-outlined', 'checkbox');
     checagemTarefa.textContent = 'radio_button_unchecked';
 
+    const textoTarefa = Tarefa.title;
     const paragrafoTarefa = document.createElement('p');
     paragrafoTarefa.textContent = textoTarefa;
 
@@ -405,42 +408,92 @@ function cria_novaTarefa(textoTarefa)
 
 }
 
-function botao_novaTarefa_clicado()
+async function botao_novaTarefa_clicado()
 {
     const textoTarefa = prompt('o que vamos fazer?');
 
     if(textoTarefa && textoTarefa.trim() !== '')
-        cria_novaTarefa(textoTarefa);
+    {    
+        //cria objeto para ser guardado
+        const novaTarefa = {
+            Title: textoTarefa,
+            IsCompleted: false
+        };
+
+        const response = await fetch(URLapi,
+            {
+                method: 'POST',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(novaTarefa)
+            })
+
+        if(response.ok)
+        {
+            const tarefaCriada = await response.json();
+            cria_novaTarefa(tarefaCriada);
+        }
+    }
 }
 
 botao_adicionaTarefa.addEventListener('click', botao_novaTarefa_clicado);
 
 //checagem de tarefas
 
-function tarefaChecada(event)
+async function tarefaChecada(event)
 {
     const icone_clicado = event.target;
-    const informacaoTarefa = icone_clicado.parentElement;
 
+    //closest usa uma string, então tem que escrever o '.' antes do nome da classe
+    const informacaoTarefa = icone_clicado.closest('.tarefaEspecifica');
+    const tarefaID = informacaoTarefa.dataset.id;
+    let estaMarcada;
+
+    if(!informacaoTarefa)
+        return;
+
+    //esse if vem primeiro pois o evento de 'click' já existe e ocorre pelo front, então não somente não 
+    //se precisa verificar nada com o backend como ele tem ue existir primeiro a qualquer verificação de backend
     if(event.target.classList.contains('checkbox'))
     {
-        const textoTarefa = informacaoTarefa.querySelector('p');
+        const paragrafoTarefa = informacaoTarefa.querySelector('p');
+        const conteudo_paragrafoTarefa = paragrafoTarefa.textContent;
 
         //essa estrutura é meio nojenta, mas serve pra atribuir um booleano caso, nesse exemplo,
         //o texto do elemento icone_clicado for igual a 'radio_button_checked'
         const foiChecada = icone_clicado.textContent === 'radio_button_checked';
 
-        if(foiChecada)
+   
+ 
+        const tarefaAtualizada = {
+            Id: tarefaID,
+            Title: conteudo_paragrafoTarefa,
+            IsCompleted: !foiChecada
+        };
+
+        const response = await fetch(`${URLapi}/${tarefaID}` , {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},    
+            body: JSON.stringify(tarefaAtualizada)
+            }
+        );
+
+        //primeiro tem que ser tudo ajeitado no backend em termos de modificação
+        //depois que a modificação foi aprovada pelo back, muda-se o front
+        if(response.ok)
         {
-            icone_clicado.textContent = 'radio_button_unchecked';
-            icone_clicado.classList.remove('checked');
-            textoTarefa.classList.remove('tarefaConcluida');
-        }
-        else
-        {
-            icone_clicado.textContent = 'radio_button_checked';
-            icone_clicado.classList.add('checked');
-            textoTarefa.classList.add('tarefaConcluida');
+            if(foiChecada)
+            {
+                icone_clicado.textContent = 'radio_button_unchecked';
+                icone_clicado.classList.remove('checked');
+                paragrafoTarefa.classList.remove('tarefaConcluida');
+            }
+        
+            else
+            {
+                icone_clicado.textContent = 'radio_button_checked';
+                icone_clicado.classList.add('checked');
+                paragrafoTarefa.classList.add('tarefaConcluida');
+            }
         }
     }
 
@@ -457,6 +510,7 @@ function tarefaChecada(event)
 
             if(tarefa_para_remover)
             {
+                const response = await fetch(`${URLapi}/${tarefaID}`, {method:'DELETE'})
                 tarefa_para_remover.remove();
             }  
         }
@@ -466,3 +520,24 @@ function tarefaChecada(event)
 
 
 conteiner_tarefas.addEventListener('click', tarefaChecada);
+
+
+//******** INTEGRAÇÃO COM BACKEND ********//
+
+
+const  URLapi = 'http://localhost:5021/api/projetoTaskManager';
+
+//integrando GET
+async function carregarTarefas()
+{
+    const response = await fetch(URLapi);
+    const tarefas = await response.json();
+
+    tarefas.forEach(tarefaIndividual => 
+    {
+        cria_novaTarefa(tarefaIndividual);
+    });
+}
+
+carregarTarefas()
+
